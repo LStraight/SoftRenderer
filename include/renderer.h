@@ -177,9 +177,9 @@ bool Renderer::IsUpLeft(const vec2i& a, const vec2i& b) {
 	return ((a.y == b.y) && (a.x < b.x)) || (a.y > b.y);
 }
 
+
 bool Renderer::DrawPrimitive() {
 	if (!frame_buffer || !m_vertext_shader)
-		std::cerr << "draw failed" << std::endl;
 		return false;
 
 	//遍历顶点，初始化
@@ -197,7 +197,7 @@ bool Renderer::DrawPrimitive() {
 
 		//x,y,z的取值范围在[0,1)，用w做边界判定，这里w是1
 		//有一个点超出边界这判定绘制失败，正常应该将越出边界的三角形做切割，形成两个完整的三角形
-		if (w == 0.f) return false;
+		if (w == 0.0f) return false;
 		if (vertex.pos.x < -w || vertex.pos.x > w) return false;
 		if (vertex.pos.y < -w || vertex.pos.y > w) return false;
 		if (vertex.pos.z < 0.0f || vertex.pos.z > w) return false;
@@ -219,7 +219,7 @@ bool Renderer::DrawPrimitive() {
 			rect_min_x = Between(0, fb_width - 1, Min(rect_min_x, vertex.spi.x));
 			rect_max_x = Between(0, fb_width - 1, Max(rect_max_x, vertex.spi.x));
 			rect_min_y = Between(0, fb_height- 1, Min(rect_min_y, vertex.spi.y));
-			rect_min_x = Between(0, fb_height- 1, Max(rect_max_y, vertex.spi.y));
+			rect_max_y = Between(0, fb_height- 1, Max(rect_max_y, vertex.spi.y));
 		}
 	}
 
@@ -229,6 +229,7 @@ bool Renderer::DrawPrimitive() {
 		DrawLine(m_vertex[0].spi.x, m_vertex[0].spi.y, m_vertex[2].spi.x, m_vertex[2].spi.y);
 		DrawLine(m_vertex[2].spi.x, m_vertex[2].spi.y, m_vertex[1].spi.x, m_vertex[1].spi.y);
 	}
+	
 
 	//无需填充则退出
 	if (render_pixel == false) return false;
@@ -360,8 +361,9 @@ bool Renderer::DrawPrimitive() {
 }
 
 
-
 /*
+
+
 bool Renderer::DrawPrimitive() {
 	if (frame_buffer == NULL || m_vertext_shader == NULL)
 		return false;
@@ -573,5 +575,4 @@ bool Renderer::DrawPrimitive() {
 
 	return true;
 }
-
 */

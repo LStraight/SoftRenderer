@@ -28,7 +28,7 @@ Vector<N, T> operator-(const Vector<N, T>& a) {
 template<size_t N, typename T>
 bool operator==(const Vector<N, T>& a, const Vector<N, T>& b) {
     for (size_t i = 0; i < N; ++i)
-        if (a[i] != a[i])
+        if (a[i] != b[i])
             return false;
 
     return true;
@@ -153,9 +153,6 @@ Vector<N, T>& operator*=(Vector<N, T>& a, T k) {
     return a;
 }
 
-
-
-
 template<size_t N1, size_t N2, typename T>
 Vector<N1, T> vector_convert(const Vector<N2, T>& a, T fill = 1) {
     Vector<N1, T> res;
@@ -208,7 +205,7 @@ Vector<3, T> vector_cross(const Vector<3, T>& a, const Vector<3, T>& b) {
     return Vector<3, T>(
         a.y * b.z - a.z * b.y,
         a.z * b.x - a.x * b.z,
-        a.x * b.y - a.y * a.x
+        a.x * b.y - a.y * b.x
     );
 }
 
@@ -217,7 +214,7 @@ Vector<4, T> vector_cross(const Vector<4, T>& a, const Vector<4, T>& b) {
     return Vector<4, T>(
         a.y * b.z - a.z * b.y,
         a.z * b.x - a.x * b.z,
-        a.x * b.y - a.y * a.x,
+        a.x * b.y - a.y * b.x,
         a.w
     );
 }
@@ -295,7 +292,6 @@ std::string vector_repr(const Vector<N, T>& a) {
     ss << a;
     return ss.str();
 }
-
 
 //¾ØÕóÔËËã
 template<size_t R, size_t C, typename T>
@@ -617,3 +613,7 @@ static Mat44f matrix_set_perspective(float fovy, float aspect, float zn, float z
     return res;
 
 }
+
+
+
+
